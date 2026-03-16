@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8c78935627380ffa8496bad495cbccad {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+<div style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+     z-index: 1000; background: rgba(0,0,0,0.85); padding: 12px 24px;
+     border-radius: 8px; border: 1px solid #444; text-align: center;">
+    <h3 style="color: white; margin: 0; font-family: Arial; font-size: 16px;">
+        🗺️ Delhi Crime Safety Map - AI Generated
+    </h3>
+    <p style="color: #aaa; margin: 4px 0 0 0; font-size: 12px;">
+        Green = Safe | Orange = Moderate | Red = Unsafe
+    </p>
+</div>
+    
+<div style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;
+     background: rgba(0,0,0,0.85); padding: 14px; border-radius: 8px;
+     border: 1px solid #555; font-family: Arial;">
+    <b style="color: white; font-size: 13px;">Safety Legend</b><br><br>
+    <span style="color: #27ae60; font-size: 20px;">●</span>
+    <span style="color: white; font-size: 12px;"> Safe (rate ≤ 10)</span><br>
+    <span style="color: #f39c12; font-size: 20px;">●</span>
+    <span style="color: white; font-size: 12px;"> Moderate (rate 11–20)</span><br>
+    <span style="color: #e74c3c; font-size: 20px;">●</span>
+    <span style="color: white; font-size: 12px;"> Unsafe (rate 21+)</span><br><br>
+    <span style="color: #888; font-size: 10px;">Click circle for details</span>
+</div>
+    
+            <div class="folium-map" id="map_8c78935627380ffa8496bad495cbccad" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_8c78935627380ffa8496bad495cbccad = L.map(
+                "map_8c78935627380ffa8496bad495cbccad",
+                {
+                    center: [28.6139, 77.209],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e1c790c46e305744570866e58c1e7dd7 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e1c790c46e305744570866e58c1e7dd7.addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var circle_marker_863a5a89465a83d176d5a685280d2d2b = L.circleMarker(
+                [28.6508, 77.23],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_8afb2403c2462b796a31d9ad9749e94d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ae3f62ab98c9d6d24c7f8658cfaa933e = $(`<div id="html_ae3f62ab98c9d6d24c7f8658cfaa933e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #e74c3c; margin: 0 0 8px 0; font-size: 15px;">             Central Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#e74c3c">Unsafe</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>265.72 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>587,455.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>32.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>85.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>180.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>850.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_8afb2403c2462b796a31d9ad9749e94d.setContent(html_ae3f62ab98c9d6d24c7f8658cfaa933e);
+            
+        
+
+        circle_marker_863a5a89465a83d176d5a685280d2d2b.bindPopup(popup_8afb2403c2462b796a31d9ad9749e94d)
+        ;
+
+        
+    
+    
+            circle_marker_863a5a89465a83d176d5a685280d2d2b.bindTooltip(
+                `<div>
+                     Central Delhi — Unsafe
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_62bbd73dbf0921b101f59f55fa384fc1 = L.marker(
+                [28.6588, 77.23],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_7c8714ac70f87f9a970628f9b9f3dc1c = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eCentral Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_62bbd73dbf0921b101f59f55fa384fc1.setIcon(div_icon_7c8714ac70f87f9a970628f9b9f3dc1c);
+            
+    
+            var circle_marker_405525aa9446bc77fbdf022762780299 = L.circleMarker(
+                [28.7041, 77.1025],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_bc08682b0c9c8e2708fb9de4e7e2b42c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_14545cb4964957ad1247f1035e9b1571 = $(`<div id="html_14545cb4964957ad1247f1035e9b1571" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #f39c12; margin: 0 0 8px 0; font-size: 15px;">             North Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#f39c12">Moderate</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>120.95 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>887,978.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>18.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>60.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>120.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>600.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_bc08682b0c9c8e2708fb9de4e7e2b42c.setContent(html_14545cb4964957ad1247f1035e9b1571);
+            
+        
+
+        circle_marker_405525aa9446bc77fbdf022762780299.bindPopup(popup_bc08682b0c9c8e2708fb9de4e7e2b42c)
+        ;
+
+        
+    
+    
+            circle_marker_405525aa9446bc77fbdf022762780299.bindTooltip(
+                `<div>
+                     North Delhi — Moderate
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f56f4f21b65638d4a18988becbd2c197 = L.marker(
+                [28.7121, 77.1025],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_7a870f9945e3e6d2fb9424c3bb52dd17 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eNorth Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_f56f4f21b65638d4a18988becbd2c197.setIcon(div_icon_7a870f9945e3e6d2fb9424c3bb52dd17);
+            
+    
+            var circle_marker_f8f152272eb248777a3d912b97aedbef = L.circleMarker(
+                [28.5355, 77.209],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_520baab5b4e2fe08a453d6cca6f00755 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e4b0cad6557d2c7314031f004acba05a = $(`<div id="html_e4b0cad6557d2c7314031f004acba05a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">             South Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#27ae60">Safe</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>54.36 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>2,731,929.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>25.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>70.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>150.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>900.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_520baab5b4e2fe08a453d6cca6f00755.setContent(html_e4b0cad6557d2c7314031f004acba05a);
+            
+        
+
+        circle_marker_f8f152272eb248777a3d912b97aedbef.bindPopup(popup_520baab5b4e2fe08a453d6cca6f00755)
+        ;
+
+        
+    
+    
+            circle_marker_f8f152272eb248777a3d912b97aedbef.bindTooltip(
+                `<div>
+                     South Delhi — Safe
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_7c87431cb4a921e10df275b57d14ce34 = L.marker(
+                [28.543499999999998, 77.209],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_aedfb9a951ce15f36fc20ce79f83bd14 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eSouth Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_7c87431cb4a921e10df275b57d14ce34.setIcon(div_icon_aedfb9a951ce15f36fc20ce79f83bd14);
+            
+    
+            var circle_marker_73109c14934cc234f820bb03157fb23f = L.circleMarker(
+                [28.6279, 77.295],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_a75cedb40f0b6eefabd1eb03c75db856 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_192e7edb2d40f287c86d19e64d380727 = $(`<div id="html_192e7edb2d40f287c86d19e64d380727" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #f39c12; margin: 0 0 8px 0; font-size: 15px;">             East Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#f39c12">Moderate</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>107.06 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>1,709,346.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>20.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>90.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>200.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>1100.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_a75cedb40f0b6eefabd1eb03c75db856.setContent(html_192e7edb2d40f287c86d19e64d380727);
+            
+        
+
+        circle_marker_73109c14934cc234f820bb03157fb23f.bindPopup(popup_a75cedb40f0b6eefabd1eb03c75db856)
+        ;
+
+        
+    
+    
+            circle_marker_73109c14934cc234f820bb03157fb23f.bindTooltip(
+                `<div>
+                     East Delhi — Moderate
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_8d10d924557769398be3e67d07946125 = L.marker(
+                [28.6359, 77.295],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_cd84d74d9ccdcb3775e83c1c250fb3df = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eEast Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_8d10d924557769398be3e67d07946125.setIcon(div_icon_cd84d74d9ccdcb3775e83c1c250fb3df);
+            
+    
+            var circle_marker_9e780df2a7d6f06ab473d4e48cc25d72 = L.circleMarker(
+                [28.6542, 77.1025],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_e432a310c8b98b3d548753df7d64123c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0ee04f6d0dfefb39e2aa9f7475180763 = $(`<div id="html_0ee04f6d0dfefb39e2aa9f7475180763" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">             West Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#27ae60">Safe</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>54.69 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>2,543,243.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>22.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>75.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>160.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>780.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_e432a310c8b98b3d548753df7d64123c.setContent(html_0ee04f6d0dfefb39e2aa9f7475180763);
+            
+        
+
+        circle_marker_9e780df2a7d6f06ab473d4e48cc25d72.bindPopup(popup_e432a310c8b98b3d548753df7d64123c)
+        ;
+
+        
+    
+    
+            circle_marker_9e780df2a7d6f06ab473d4e48cc25d72.bindTooltip(
+                `<div>
+                     West Delhi — Safe
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2df0d120bab882d09c767584cb4d4d66 = L.marker(
+                [28.6622, 77.1025],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_96f402d63209e6c22ec1d3c9bb9ca4f9 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eWest Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_2df0d120bab882d09c767584cb4d4d66.setIcon(div_icon_96f402d63209e6c22ec1d3c9bb9ca4f9);
+            
+    
+            var circle_marker_7e86d51db17833ddf414dfe4df3b4c38 = L.circleMarker(
+                [28.6139, 77.209],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_7f774989f8f4546558593e6c4ef23bec = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_d786ab82cf4b9493804f940c147cb037 = $(`<div id="html_d786ab82cf4b9493804f940c147cb037" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #e74c3c; margin: 0 0 8px 0; font-size: 15px;">             New Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#e74c3c">Unsafe</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>266.89 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>142,004.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>8.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>25.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>40.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>200.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_7f774989f8f4546558593e6c4ef23bec.setContent(html_d786ab82cf4b9493804f940c147cb037);
+            
+        
+
+        circle_marker_7e86d51db17833ddf414dfe4df3b4c38.bindPopup(popup_7f774989f8f4546558593e6c4ef23bec)
+        ;
+
+        
+    
+    
+            circle_marker_7e86d51db17833ddf414dfe4df3b4c38.bindTooltip(
+                `<div>
+                     New Delhi — Unsafe
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2a851b92c9f163fc921c196aa7490d33 = L.marker(
+                [28.6219, 77.209],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_e4e737c5635362cb40e60e075e372c93 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eNew Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_2a851b92c9f163fc921c196aa7490d33.setIcon(div_icon_e4e737c5635362cb40e60e075e372c93);
+            
+    
+            var circle_marker_2603c75f3ce02f60d3af9dfe6b932f55 = L.circleMarker(
+                [28.7333, 77.25],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_d273c7cb82de4b8db5bdfaf297a6b0d3 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0b71b60428ac635a027d763ca8d4f292 = $(`<div id="html_0b71b60428ac635a027d763ca8d4f292" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #f39c12; margin: 0 0 8px 0; font-size: 15px;">             North East Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#f39c12">Moderate</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>111.50 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>2,228,604.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>45.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>130.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>280.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>1400.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_d273c7cb82de4b8db5bdfaf297a6b0d3.setContent(html_0b71b60428ac635a027d763ca8d4f292);
+            
+        
+
+        circle_marker_2603c75f3ce02f60d3af9dfe6b932f55.bindPopup(popup_d273c7cb82de4b8db5bdfaf297a6b0d3)
+        ;
+
+        
+    
+    
+            circle_marker_2603c75f3ce02f60d3af9dfe6b932f55.bindTooltip(
+                `<div>
+                     North East Delhi — Moderate
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_94197613ce6e55cfe5d0fed06ed59fb1 = L.marker(
+                [28.7413, 77.25],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_aac04428d09130276533e50050f7829a = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eNorth East Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_94197613ce6e55cfe5d0fed06ed59fb1.setIcon(div_icon_aac04428d09130276533e50050f7829a);
+            
+    
+            var circle_marker_a918827992ca5ff18c0a563f50b5106b = L.circleMarker(
+                [28.75, 77.12],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_68c49a3a161af6e0e9114cdd2d19c200 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_9e805599887e9222f5c36652a990fdc5 = $(`<div id="html_9e805599887e9222f5c36652a990fdc5" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">             North West Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#27ae60">Safe</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>50.46 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>3,656,244.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>30.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>95.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>210.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>1050.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_68c49a3a161af6e0e9114cdd2d19c200.setContent(html_9e805599887e9222f5c36652a990fdc5);
+            
+        
+
+        circle_marker_a918827992ca5ff18c0a563f50b5106b.bindPopup(popup_68c49a3a161af6e0e9114cdd2d19c200)
+        ;
+
+        
+    
+    
+            circle_marker_a918827992ca5ff18c0a563f50b5106b.bindTooltip(
+                `<div>
+                     North West Delhi — Safe
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_d7691d528801ccafcb8cbec922c046f3 = L.marker(
+                [28.758, 77.12],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_e1d172ec111f47bc08c8414804f31785 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eNorth West Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_d7691d528801ccafcb8cbec922c046f3.setIcon(div_icon_e1d172ec111f47bc08c8414804f31785);
+            
+    
+            var circle_marker_84c7543bfef85ca4ad2d02e6530673fd = L.circleMarker(
+                [28.5921, 77.28],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_1826c5baa7b46b8e82178043ff7aaf1f = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_5ef44ef41a3ef31a9c80361465ccce1c = $(`<div id="html_5ef44ef41a3ef31a9c80361465ccce1c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">             South East Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#27ae60">Safe</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>72.40 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>1,256,938.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>15.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>55.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>100.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>500.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_1826c5baa7b46b8e82178043ff7aaf1f.setContent(html_5ef44ef41a3ef31a9c80361465ccce1c);
+            
+        
+
+        circle_marker_84c7543bfef85ca4ad2d02e6530673fd.bindPopup(popup_1826c5baa7b46b8e82178043ff7aaf1f)
+        ;
+
+        
+    
+    
+            circle_marker_84c7543bfef85ca4ad2d02e6530673fd.bindTooltip(
+                `<div>
+                     South East Delhi — Safe
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_d9b8dc09b5f47cbf12d7d2abd9137c3b = L.marker(
+                [28.600099999999998, 77.28],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_6b43fba0c453137e87f63997b9cc3697 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eSouth East Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_d9b8dc09b5f47cbf12d7d2abd9137c3b.setIcon(div_icon_6b43fba0c453137e87f63997b9cc3697);
+            
+    
+            var circle_marker_23a927ae731458be2f684363bb40ded3 = L.circleMarker(
+                [28.58, 77.05],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_01613ab70c7711b994db82475d810b3b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_634bcc88b54937d6d3a5de074ac8a8ea = $(`<div id="html_634bcc88b54937d6d3a5de074ac8a8ea" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #27ae60; margin: 0 0 8px 0; font-size: 15px;">             South West Delhi         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#27ae60">Safe</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>49.05 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>2,362,731.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>18.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>65.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>130.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>650.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_01613ab70c7711b994db82475d810b3b.setContent(html_634bcc88b54937d6d3a5de074ac8a8ea);
+            
+        
+
+        circle_marker_23a927ae731458be2f684363bb40ded3.bindPopup(popup_01613ab70c7711b994db82475d810b3b)
+        ;
+
+        
+    
+    
+            circle_marker_23a927ae731458be2f684363bb40ded3.bindTooltip(
+                `<div>
+                     South West Delhi — Safe
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0d34f76f082e3f257d90c7de0135f323 = L.marker(
+                [28.587999999999997, 77.05],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_798563e8a2d27985c78aeac223c1d667 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eSouth West Delhi\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_0d34f76f082e3f257d90c7de0135f323.setIcon(div_icon_798563e8a2d27985c78aeac223c1d667);
+            
+    
+            var circle_marker_3637b714f15a84e0891ed399cae8aec4 = L.circleMarker(
+                [28.6833, 77.2833],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 2}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+        var popup_7a85dc0ff9af4c8f02d2246277f53db0 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_cdddcdd3eb01a5295c293db7928e5a7e = $(`<div id="html_cdddcdd3eb01a5295c293db7928e5a7e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; min-width: 220px; background: #1a1a2e;                 color: white; padding: 12px; border-radius: 8px;">         <h4 style="color: #e74c3c; margin: 0 0 8px 0; font-size: 15px;">             Shahdara         </h4>         <hr style="border-color: #444; margin: 6px 0;">         <table style="width: 100%; font-size: 13px;">             <tr><td>🏷️ Safety Status</td>                 <td><b style="color:#e74c3c">Unsafe</b></td></tr>             <tr><td>📊 Safety Rate</td>                 <td>175.91 per 100k</td></tr>             <tr><td>👥 Population</td>                 <td>1,093,759.0</td></tr>             <tr><td>🔴 Rape Cases</td>                 <td>28.0</td></tr>             <tr><td>🟠 Kidnapping</td>                 <td>100.0</td></tr>             <tr><td>🟡 Robbery</td>                 <td>220.0</td></tr>             <tr><td>🔵 Theft</td>                 <td>1100.0</td></tr>         </table>     </div>     </div>`)[0];
+                popup_7a85dc0ff9af4c8f02d2246277f53db0.setContent(html_cdddcdd3eb01a5295c293db7928e5a7e);
+            
+        
+
+        circle_marker_3637b714f15a84e0891ed399cae8aec4.bindPopup(popup_7a85dc0ff9af4c8f02d2246277f53db0)
+        ;
+
+        
+    
+    
+            circle_marker_3637b714f15a84e0891ed399cae8aec4.bindTooltip(
+                `<div>
+                     Shahdara — Unsafe
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_810ea2270d8a13561d19c493c4a7b172 = L.marker(
+                [28.6913, 77.2833],
+                {
+}
+            ).addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+    
+            var div_icon_f200a32ee908aec1692c13201fab3ea6 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:9px; color:white; font-weight:bold; white-space:nowrap; text-shadow: 1px 1px 2px black;\"\u003eShahdara\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_810ea2270d8a13561d19c493c4a7b172.setIcon(div_icon_f200a32ee908aec1692c13201fab3ea6);
+            
+    
+            var heat_map_a43149b02255a23cd597db1c12b1b1dd = L.heatLayer(
+                [[28.6508, 77.23, 1561.0], [28.7041, 77.1025, 1074.0], [28.5355, 77.209, 1485.0], [28.6279, 77.295, 1830.0], [28.6542, 77.1025, 1391.0], [28.6139, 77.209, 379.0], [28.7333, 77.25, 2485.0], [28.75, 77.12, 1845.0], [28.5921, 77.28, 910.0], [28.58, 77.05, 1159.0], [28.6833, 77.2833, 1924.0]],
+                {
+  "minOpacity": 0.3,
+  "maxZoom": 13,
+  "radius": 60,
+  "blur": 40,
+  "gradient": {
+  0.2: "blue",
+  0.4: "lime",
+  0.6: "yellow",
+  0.8: "orange",
+  1.0: "red",
+},
+}
+            );
+        
+    
+            heat_map_a43149b02255a23cd597db1c12b1b1dd.addTo(map_8c78935627380ffa8496bad495cbccad);
+        
+</script>
+</html>
